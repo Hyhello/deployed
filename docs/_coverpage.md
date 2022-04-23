@@ -1,6 +1,6 @@
 ![logo](./_images/icon.svg)
 
-# <image src="./_images/cracker.svg" /> 前端自动化部署工具 <image src="./_images/cracker.svg" /> <small>v0.3.0</small>
+# <image src="./_images/cracker.svg" /> 前端自动化部署工具 <image src="./_images/cracker.svg" /> <small>v0.4.0</small>
 
 ### 目的：轻量级、提效、减少容错率。
 
