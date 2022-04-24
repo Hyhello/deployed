@@ -12,10 +12,10 @@ npx deployed-cli --help | npx deployed-cli -h
 
 ##### #获取版本
 
-通过 <code>--version</code> | <code>-V</code> 参数来获取版本号。
+通过 <code>--version</code> | <code>-v</code> 参数来获取版本号。
 
 ```Shell
-npx deployed-cli --version | npx deployed-cli -V
+npx deployed-cli --version | npx deployed-cli -v
 ```
 
 ##### #初始化配置文件
