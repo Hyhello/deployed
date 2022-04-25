@@ -1,6 +1,5 @@
 {
   "title": "deployed cli",
-  "$id": "http://json-schema.org/draft-07/schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "JSON schema for the deployed cli config file. \n\nSee also: https://hyhello.github.io/deployed\n\n",
   "type": "object",
