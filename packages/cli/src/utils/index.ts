@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
-import * as path from 'path';
+import path from 'path';
+import fs from 'fs-extra';
+import semver from 'semver';
 import logger from './logger';
-import * as fs from 'fs-extra';
-import * as semver from 'semver';
 import { NAMESPACE } from '../config';
 
 // 日志

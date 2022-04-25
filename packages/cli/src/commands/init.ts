@@ -1,15 +1,14 @@
 #! /usr/bin/env node
 
-import * as fs from 'fs-extra';
-import * as inquirer from 'inquirer';
+import fs from 'fs-extra';
+import inquirer from 'inquirer';
 import { logger, resolveCWD } from '../utils';
 import { initConfigFile, inquirerConfig } from '../config';
 
 // 创建配置文件
 const createConfigFile = (answers: inquirer.Answers): void => {
 	delete answers.isExist;
-	const str = `module.exports = ${JSON.stringify(answers, null, 2)}`;
-	fs.writeFileSync(resolveCWD(initConfigFile), str);
+	fs.writeFileSync(resolveCWD(initConfigFile), JSON.stringify(answers, null, 2));
 };
 
 export default {

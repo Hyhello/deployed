@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import { Command } from 'commander';
 import { checkNodeVersion } from './utils';
 import { pkg, NAMESPACE, helpAfterText } from './config';

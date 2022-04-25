@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 
 import Ajv from 'ajv';
-import * as path from 'path';
+import path from 'path';
 import logger from './logger';
-import { schema, NAMESPACE } from '../config';
+import schema from '../schema.json';
+import { NAMESPACE } from '../config';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { isPlainObject, isNumber, toNumber, isBoolean } from '@hyhello/utils';
 

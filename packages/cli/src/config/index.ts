@@ -1,8 +1,5 @@
 #! /usr/bin/env node
 
-// ajv 配置文件 schema store
-export { default as schema } from './schema';
-
 // inquirer配置文件
 export { default as inquirerConfig } from './inquirerConfig';
 
@@ -10,7 +7,7 @@ export { default as inquirerConfig } from './inquirerConfig';
 export const NAMESPACE = 'deployed';
 
 // 初始化生成的配置位置
-export const initConfigFile = `.${NAMESPACE}.js`;
+export const initConfigFile = `.${NAMESPACE}.json`;
 
 // package JSON
 export const pkg: any = require('../../package.json');

@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import * as inquirer from 'inquirer';
+import inquirer from 'inquirer';
 import runTasks, { runTry } from '../core';
 import { logger, loadConfig } from '../utils';
 
