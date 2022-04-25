@@ -1,6 +1,6 @@
 {
     "name": "@deployed/cli",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "一款轻量级的前端自动化部署工具",
     "author": "hyhello",
     "homepage": "https://hyhello.github.io/deployed",
