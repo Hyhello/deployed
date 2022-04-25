@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
+import inquirer from 'inquirer';
 import { logger } from '../utils';
-import * as inquirer from 'inquirer';
 
 const runTry = () => {
 	inquirer

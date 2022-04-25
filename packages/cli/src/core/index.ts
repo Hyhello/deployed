@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
-import * as fs from 'fs-extra';
-import * as inquirer from 'inquirer';
+import fs from 'fs-extra';
+import inquirer from 'inquirer';
+import archiver from 'archiver';
 import { exec } from 'child_process';
-import * as archiver from 'archiver';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
 import { formatDate } from '@hyhello/utils';
