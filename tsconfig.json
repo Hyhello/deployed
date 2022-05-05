@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "allowJs": false,
+        "strict": true,
+        "module": "commonjs",
+        "importHelpers": true,
+        "noUnusedLocals": true,
+        "removeComments": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
