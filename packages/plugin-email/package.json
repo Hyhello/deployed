@@ -7,8 +7,7 @@
     "license": "ISC",
     "main": "lib/plugin-email.js",
     "directories": {
-        "lib": "lib",
-        "test": "__tests__"
+        "lib": "lib"
     },
     "files": [
         "lib"
@@ -31,5 +30,8 @@
     },
     "dependencies": {
         "nodemailer": "^6.7.4"
+    },
+    "devDependencies": {
+        "@types/nodemailer": "^6.4.4"
     }
 }
