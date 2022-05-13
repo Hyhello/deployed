@@ -73,6 +73,7 @@ const inquirerConfig: inquirer.QuestionCollection<inquirer.Answers> = [
 		type: 'input',
 		name: 'modeList[0].username',
 		message: '用户名:',
+		default: 'root',
 		when(answers) {
 			return answers.isExist;
 		}

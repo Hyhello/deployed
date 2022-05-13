@@ -7,7 +7,7 @@ import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
 import { formatDate } from '@hyhello/utils';
-import { logger, resolveCWD, pathExistsSync } from '../utils';
+import { logger, pPipe, resolveCWD, pathExistsSync } from '../utils';
 
 const ssh = new NodeSSH();
 
@@ -170,17 +170,19 @@ const unTarFile = async (opts: any, index: number) => {
 // 运行任务
 const runTasks = async (opts: any) => {
 	const { script, global_script, backupPath } = opts;
-	let index = 0;
+	const list = [];
 	if (script || global_script) {
-		await execScriptCommand(opts, ++index);
+		list.push(execScriptCommand);
 	}
-	await floderConvertToZipStream(opts, ++index);
-	await connectServer(opts, ++index);
-	await uploadTarToServer(opts, ++index);
+	list.push(floderConvertToZipStream);
+	list.push(connectServer);
+	list.push(uploadTarToServer);
 	if (backupPath) {
-		await bckupRemotePath(opts, ++index);
+		list.push(bckupRemotePath);
 	}
-	await unTarFile(opts, ++index);
+	list.push(unTarFile);
+	const execute = pPipe(...list);
+	await execute(opts);
 };
 
 export default runTasks;
