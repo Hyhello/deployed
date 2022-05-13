@@ -30,3 +30,15 @@ export const checkNodeVersion = (v: string) => {
 export const resolveCWD = (dir: string): string => {
 	return path.isAbsolute(dir) ? dir : path.resolve(process.cwd(), dir);
 };
+
+// 执行p-pipe
+export const pPipe = (...list: Array<(input: any, index: number) => Promise<void>>) => {
+	return async (input: any) => {
+		let index = 0;
+		let currentInput = input;
+		for (const func of list) {
+			currentInput = await func(input, ++index);
+		}
+		return currentInput;
+	};
+};
