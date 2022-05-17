@@ -14,3 +14,6 @@ export const pkg: any = require('../../package.json');
 
 // helpAfterText
 export const helpAfterText = `\nFor more details, please see ${pkg.homepage}`;
+
+// json.schemastore.org 提示配置
+export const schemaRemoteUrl = 'https://json.schemastore.org/deployed';

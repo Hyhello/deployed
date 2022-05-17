@@ -3,13 +3,14 @@
   "script": "npm run build",
   "modeList": [
     {
-      "mode": "",
-      "name": "",
-      "host": "",
+      "mode": "dev",
+      "name": "开发环境",
+      "host": "2",
       "port": 22,
       "username": "root",
-      "localPath": "",
-      "remotePath": ""
+      "localPath": "./list",
+      "remotePath": "./list"
     }
-  ]
+  ],
+  "$schema": "https://json.schemastore.org/deployed"
 }
