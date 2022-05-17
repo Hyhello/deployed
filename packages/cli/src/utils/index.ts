@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import semver from 'semver';
 import logger from './logger';
 import { NAMESPACE } from '../config';
+import { random } from '@hyhello/utils';
 
 // 日志
 export { default as logger } from './logger';
@@ -41,4 +42,14 @@ export const pPipe = (...list: Array<(input: any, index: number) => Promise<void
 		}
 		return currentInput;
 	};
+};
+
+// 随机Promise
+export const randomPromiseFn = (func: () => void): Promise<void> => {
+	return new Promise((resolve) => {
+		setTimeout(() => {
+			func();
+			resolve();
+		}, Math.floor(random(1000, 10000)));
+	});
 };
