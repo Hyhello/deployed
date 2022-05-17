@@ -12,7 +12,6 @@
     "scripts": {
         "prepublish": "npm run build",
         "prebuild": "rimraf lib",
-        "lint": "tsc --noEmit",
         "build": "tsc"
     },
     "files": [
