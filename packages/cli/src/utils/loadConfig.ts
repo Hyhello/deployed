@@ -8,7 +8,7 @@ import { NAMESPACE } from '../config';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { isPlainObject, isNumber, toNumber, isBoolean } from '@hyhello/utils';
 
-const ajv = new Ajv({ allowUnionTypes: true });
+const ajv = new Ajv({ allowUnionTypes: true, strictTuples: false });
 
 // 搜索配置文件列表
 const searchPlaces: string[] = [
