@@ -34,7 +34,7 @@ export const resolveCWD = (dir: string): string => {
 
 // 执行p-pipe
 export const pPipe = (...list: Array<(input: any, index: number) => Promise<void>>) => {
-	return async (input: any) => {
+	return async (input?: any) => {
 		let index = 0;
 		let currentInput = input;
 		for (const func of list) {
