@@ -6,8 +6,8 @@
     ],
     "license": "MIT",
     "scripts": {
+        "prepare": "husky install",
         "version": "node ./scripts/docs.js",
-        "postinstall": "husky install",
         "docs": "docsify serve ./docs",
         "lint": "eslint --ext .ts packages",
         "lint:ts": "tsc -p tsconfig.lint.json"
