@@ -26,7 +26,6 @@ const pathGetProperty = (instancePath: string): string => {
 	const { name: key, dir } = path.parse(instancePath);
 	let property = key;
 	if (isNumber(toNumber(key))) {
-		path.parse(dir).name;
 		property = `${path.parse(dir).name}[${key}]`;
 	}
 	return property;
