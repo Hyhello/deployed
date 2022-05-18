@@ -6,6 +6,7 @@
     "homepage": "https://github.com/Hyhello/deployed#readme",
     "license": "ISC",
     "main": "lib/plugin-email.js",
+    "private": true,
     "directories": {
         "lib": "lib"
     },
