@@ -21,9 +21,8 @@
         "url": "git+https://github.com/Hyhello/deployed.git"
     },
     "scripts": {
-        "prepublish": "npm run build",
+        "prepublishOnly": "npm run build",
         "prebuild": "rimraf lib",
-        "lint": "tsc --noEmit",
         "build": "tsc"
     },
     "bugs": {
