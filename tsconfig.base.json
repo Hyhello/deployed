@@ -4,7 +4,6 @@
         "allowJs": false,
         "strict": true,
         "module": "commonjs",
-        "importHelpers": true,
         "noUnusedLocals": true,
         "removeComments": true,
         "esModuleInterop": true,
