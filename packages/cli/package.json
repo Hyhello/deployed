@@ -10,7 +10,6 @@
         "deployed-cli": "bin/deployed-cli"
     },
     "scripts": {
-        "prepublishOnly": "npm run build",
         "prebuild": "rimraf lib",
         "build": "tsc"
     },
