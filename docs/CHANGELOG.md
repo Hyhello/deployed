@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* 升级依赖导致全局安装报错问题 ([692f1b0](https://github.com/Hyhello/deployed/commit/692f1b00a168d3c57f7b4350f048e0a17db9ace9))
+
+
+
+
+
+
 ## [0.4.2](https://github.com/Hyhello/deployed/compare/v0.4.1...v0.4.2) (2022-05-18)
 
 
