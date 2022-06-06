@@ -5,6 +5,7 @@ interface IDeployOpts {
     configFile?: string;                   // 自定义配置文件路径
     mode?: string;                         // 指定部署的环境别名
     tryRun?: boolean;                      // 是否试运行
+    yes?: boolean;                         // 是否默认执行（取消提示）
 }
 
 interface IBaseOptions {

@@ -19,10 +19,14 @@ export default {
 		{
 			argv: '-t, --try-run',
 			description: '演示模式'
+		},
+		{
+			argv: '-y, --yes',
+			description: '是否默认执行（取消提示）'
 		}
 	],
 	apply(opts: IDeployOpts) {
-		const { mode, configFile, tryRun } = opts;
+		const { mode, configFile, tryRun, yes } = opts;
 		if (tryRun) return runTry();
 		// 检测并加载配置文件
 		const config = loadConfig(configFile);
@@ -50,7 +54,7 @@ export default {
 					type: 'confirm',
 					name: 'continue',
 					message: `是否将${logger.underline(config.projectName)}项目部署到${logger.underline(names)}?`,
-					when: !!modeList.length
+					when: !!modeList.length && !yes
 				}
 			])
 			.then(async (answer) => {
