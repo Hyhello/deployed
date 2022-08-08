@@ -66,11 +66,7 @@ export default {
 				const clusterList = 'cluster' in answer ? [answer.cluster] : modeList;
 				for (let i = 0, ii = clusterList.length; i < ii; i++) {
 					const localConfig = configModeMap.get(clusterList[i]);
-					if (ii > 1) {
-						logger.log(`\n正在部署 ${logger.underline(localConfig?.name)} 项目\n`);
-					} else {
-						console.log('\n');
-					}
+					if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig?.name)} 项目\n`);
 					await runTasks({
 						projectName: config.projectName,
 						global_privateKey: config.privateKey,
