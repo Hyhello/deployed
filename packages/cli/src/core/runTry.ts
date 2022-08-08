@@ -3,17 +3,18 @@
 import inquirer from 'inquirer';
 import { logger, randomPromiseFn } from '../utils';
 
-const runTry = () => {
+const runTry = (yes = false) => {
 	inquirer
 		.prompt([
 			{
 				type: 'confirm',
 				name: 'continue',
-				message: '是否运行演示模式?'
+				message: '是否运行演示模式?',
+				when: !yes
 			}
 		])
 		.then(async (answer) => {
-			if (!answer.continue) return;
+			if (answer.continue === false) return;
 			const spiner = logger.spinner();
 			const lastTime = new Date().getTime();
 			logger.log('(1) npm run build');
