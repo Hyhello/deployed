@@ -27,7 +27,7 @@ export default {
 	],
 	apply(opts: IDeployOpts) {
 		const { mode, configFile, tryRun, yes } = opts;
-		if (tryRun) return runTry();
+		if (tryRun) return runTry(yes);
 		// 检测并加载配置文件
 		const config = loadConfig(configFile);
 		const configModeMap = new Map(config.modeList.map((item) => [item.mode, item]));
