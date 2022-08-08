@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/Hyhello/deployed/compare/v0.4.3...v0.6.0) (2022-08-08)
+
+
+### Bug Fixes
+
+* 完善index.d.ts类型，添加plugin及$schema字段 ([eecf19f](https://github.com/Hyhello/deployed/commit/eecf19fc16047ab2004a7aab848b7cf291634ede))
+* 修复日志打印格式问题 ([5c4252b](https://github.com/Hyhello/deployed/commit/5c4252b6e2255f9591c2e01770caf6e30d82e5a7))
+* 优化run try模式 ([b405e62](https://github.com/Hyhello/deployed/commit/b405e629923bce20763eadf5e8c144db3ec947b7))
+
+
+### Features
+
+* command deploy add --yes parameter ([3db5340](https://github.com/Hyhello/deployed/commit/3db53402ed57107be0486f00fec17b36052f365f))
+
+
+
+
+
+
 ## [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
 
 

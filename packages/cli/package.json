@@ -1,6 +1,6 @@
 {
     "name": "@deployed/cli",
-    "version": "0.5.0",
+    "version": "0.6.0",
     "description": "一款轻量级的前端自动化部署工具",
     "author": "hyhello",
     "homepage": "https://hyhello.github.io/deployed",
@@ -62,8 +62,8 @@
         "inquirer": "^8.2.2",
         "node-ssh": "^12.0.4",
         "ora": "^5.4.1",
-        "tslib": "^2.3.1",
         "semver": "^7.3.5",
+        "tslib": "^2.3.1",
         "v8-compile-cache": "^2.3.0"
     },
     "gitHead": "b973d06f5567916f119a4e4f53c906eb90bf5564"
