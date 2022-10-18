@@ -3,6 +3,7 @@
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import archiver from 'archiver';
+import type Plugin from './plugin';
 import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
@@ -17,10 +18,11 @@ const spinner = logger.spinner();
 const OUTPUT_NAME = resolveCWD(`${NAMESPACE}.tar.gz`);
 
 // 构建项目
-const execScriptCommand = (opts: any, index: number): Promise<void> => {
+const execScriptCommand = (index: number, opts: any, compiler: Plugin): Promise<void> => {
 	const script = opts.script || opts.global_script;
 	return new Promise((resolve, reject) => {
 		logger.log(`(${index}) ${script}`);
+		compiler.hook.beforeExec.call();
 		spinner.start('编译新版本...\n');
 		exec(script, (e) => {
 			if (e) {
@@ -31,15 +33,17 @@ const execScriptCommand = (opts: any, index: number): Promise<void> => {
 				spinner.succeed('项目编译成功!');
 				resolve();
 			}
+			compiler.hook.afterExec.call();
 		});
 	});
 };
 
 // 压缩本地文件夹为tar
-const floderConvertToZipStream = (opts: any, index: number): Promise<void> => {
+const floderConvertToZipStream = (index: number, opts: any, compiler: Plugin): Promise<any> => {
 	const { localPath } = opts;
 	return new Promise((resolve, reject) => {
 		logger.log(`(${index}) 压缩目录: ${logger.underline(localPath)}`);
+		compiler.hook.beforeZip.call();
 		spinner.start('压缩中...\n');
 		if (!pathExistsSync(localPath)) {
 			spinner.fail('压缩失败，目录不存在!');
@@ -67,7 +71,7 @@ const floderConvertToZipStream = (opts: any, index: number): Promise<void> => {
 };
 
 // 链接服务器
-const connectServer = async (opts: any, index: number) => {
+const connectServer = async (index: number, opts: any, compiler: Plugin) => {
 	try {
 		logger.log(`(${index}) 连接服务器: ${logger.underline(opts.host)}`);
 		const privateKey = opts.privateKey || opts.global_privateKey;
@@ -99,12 +103,13 @@ const connectServer = async (opts: any, index: number) => {
 		spinner.succeed('连接成功!');
 	} catch (e) {
 		spinner.fail(`连接失败：${e}`);
+		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
 		process.exit(1);
 	}
 };
 
 // 上传文件到服务器并备份
-const uploadTarToServer = async (opts: any, index: number) => {
+const uploadTarToServer = async (index: number, opts: any, compiler: Plugin) => {
 	try {
 		const { remotePath } = opts;
 		const remoteTarPath = remotePath + '.tar.gz';
@@ -114,12 +119,13 @@ const uploadTarToServer = async (opts: any, index: number) => {
 		spinner.succeed('上传成功!');
 	} catch (e) {
 		spinner.fail(`上传失败：${e}`);
+		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
 		process.exit(1);
 	}
 };
 
 // 备份旧版本
-const bckupRemotePath = async (opts: any, index: number) => {
+const bckupRemotePath = async (index: number, opts: any, compiler: Plugin) => {
 	try {
 		const { remotePath, backupPath, backupName } = opts;
 		const bakName = `${formatDate(new Date(), backupName || 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
@@ -136,13 +142,13 @@ const bckupRemotePath = async (opts: any, index: number) => {
 		spinner.succeed('备份成功!');
 	} catch (e) {
 		spinner.fail(`备份失败：${e}`);
-		fs.unlinkSync(OUTPUT_NAME);
+		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
 		process.exit(1);
 	}
 };
 
 // 部署项目
-const unTarFile = async (opts: any, index: number) => {
+const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 	const { remotePath, localPath, clearRemoteDir, removeLocalDir, global_removeLocalDir } = opts;
 	try {
 		logger.log(`(${index}) 部署新版本`);
@@ -161,14 +167,14 @@ const unTarFile = async (opts: any, index: number) => {
 	} catch (e) {
 		spinner.fail(`部署失败：${e}`);
 	} finally {
-		fs.unlinkSync(OUTPUT_NAME);
+		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
 		// 断开连接
 		ssh.dispose();
 	}
 };
 
 // 运行任务
-const runTasks = async (opts: any) => {
+const runTasks = async (opts: any, compiler: Plugin) => {
 	const { script, global_script, backupPath } = opts;
 	const list = [];
 	if (script || global_script) {
@@ -182,7 +188,8 @@ const runTasks = async (opts: any) => {
 	}
 	list.push(unTarFile);
 	const execute = pPipe(...list);
-	await execute(opts);
+	compiler.hook.done.call(opts);
+	await execute(opts, compiler);
 };
 
 export default runTasks;

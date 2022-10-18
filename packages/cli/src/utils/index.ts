@@ -13,6 +13,9 @@ export { default as logger } from './logger';
 // 加载配置文件
 export { default as loadConfig } from './loadConfig';
 
+// 加载plugin文件
+export { default as loadPlugin } from './loadPlugin';
+
 // 检测文件路径是否存在
 export const pathExistsSync = (pathDir: string): boolean => {
 	return fs.pathExistsSync(pathDir);
@@ -33,12 +36,12 @@ export const resolveCWD = (dir: string): string => {
 };
 
 // 执行p-pipe
-export const pPipe = (...list: Array<(input: any, index: number) => Promise<void>>) => {
-	return async (input?: any) => {
+export const pPipe = <T extends unknown[]>(...list: Array<(index: number, ...args: T) => Promise<any>>) => {
+	return async (...args: T) => {
 		let index = 0;
-		let currentInput = input;
+		let currentInput;
 		for (const func of list) {
-			currentInput = await func(input, ++index);
+			currentInput = await func.apply(null, [++index, ...args]);
 		}
 		return currentInput;
 	};

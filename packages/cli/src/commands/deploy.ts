@@ -1,8 +1,9 @@
 #! /usr/bin/env node
 
 import inquirer from 'inquirer';
+import Plugin from '../core/plugin';
 import runTasks, { runTry } from '../core';
-import { logger, loadConfig } from '../utils';
+import { logger, loadConfig, loadPlugin } from '../utils';
 
 export default {
 	isDefault: true,
@@ -28,8 +29,21 @@ export default {
 	apply(opts: IDeployOpts) {
 		const { mode, configFile, tryRun, yes } = opts;
 		if (tryRun) return runTry(yes);
+
+		// 初始化插件
+		const compiler = new Plugin();
+
 		// 检测并加载配置文件
 		const config = loadConfig(configFile);
+
+		// 加载plugin
+		if (config.plugin && Array.isArray(config.plugin)) {
+			// 插件列表
+			const pluginList: any[] = loadPlugin(config.plugin);
+
+			pluginList.forEach((plugin) => plugin.apply(compiler));
+		}
+
 		const configModeMap = new Map(config.modeList.map((item) => [item.mode, item]));
 		const modeList: string[] = (mode ? mode.split(',') : config.cluster || []).filter((item) =>
 			configModeMap.has(item)
@@ -53,7 +67,7 @@ export default {
 				{
 					type: 'confirm',
 					name: 'continue',
-					message: `是否将${logger.underline(config.projectName)}项目部署到${logger.underline(names)}?`,
+					message: `是否将 ${logger.underline(config.projectName)} 项目部署到 ${logger.underline(names)} ?`,
 					when: !!modeList.length && !yes
 				}
 			])
@@ -67,16 +81,19 @@ export default {
 				for (let i = 0, ii = clusterList.length; i < ii; i++) {
 					const localConfig = configModeMap.get(clusterList[i]);
 					if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig?.name)} 项目\n`);
-					await runTasks({
-						projectName: config.projectName,
-						global_privateKey: config.privateKey,
-						global_passphrase: config.passphrase,
-						global_script: config.script,
-						global_removeLocalDir: config.removeLocalDir,
-						...opts,
-						...localConfig,
-						remotePath: localConfig?.remotePath.replace(/\/$/, '')
-					});
+					await runTasks(
+						{
+							projectName: config.projectName,
+							global_privateKey: config.privateKey,
+							global_passphrase: config.passphrase,
+							global_script: config.script,
+							global_removeLocalDir: config.removeLocalDir,
+							...opts,
+							...localConfig,
+							remotePath: localConfig?.remotePath.replace(/\/$/, '')
+						},
+						compiler
+					);
 				}
 				logger.success(`恭喜您，项目已成功部署，本次部署共耗时${(new Date().getTime() - lastTime) / 1000}s`, {
 					prefixText: '\n'

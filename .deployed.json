@@ -1,0 +1,27 @@
+{
+    "projectName": "deployed",
+    "script": "echo '张三'",
+    "cluster": ["dev", "dev2"],
+    "modeList": [
+        {
+            "mode": "dev",
+            "name": "dev",
+            "host": "1111.1111.1111.111",
+            "port": 22,
+            "username": "root",
+            "localPath": "./dist",
+            "remotePath": "/dist"
+        },
+        {
+            "mode": "dev2",
+            "name": "dev2",
+            "host": "1111.1111.1111.111",
+            "port": 22,
+            "username": "root",
+            "localPath": "./dist",
+            "remotePath": "/dist"
+        }
+    ],
+    "plugin": [["@deployed/email", { "name": 123 }]],
+    "$schema": "https://json.schemastore.org/deployed"
+}
