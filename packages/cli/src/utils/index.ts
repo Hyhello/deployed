@@ -36,7 +36,7 @@ export const resolveCWD = (dir: string): string => {
 };
 
 // 执行p-pipe
-export const pPipe = <T extends unknown[]>(...list: Array<(index: number, ...args: T) => Promise<any>>) => {
+export const pPipe = <T extends unknown[]>(...list: Array<(index: number, ...args: T) => Promise<void>>) => {
 	return async (...args: T) => {
 		let index = 0;
 		let currentInput;

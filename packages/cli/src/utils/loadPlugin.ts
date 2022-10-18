@@ -14,7 +14,7 @@ function importModule(name: string) {
 
 const loadPlugin = (plugins: any[] = []) => {
 	return plugins.reduce((pluginList, plugin) => {
-		let pluginName: string;
+		let pluginName: string | undefined;
 		let pluginOpt: object = {};
 		if (typeof plugin === 'string') {
 			pluginName = plugin;
