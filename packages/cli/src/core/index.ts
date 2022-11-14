@@ -133,7 +133,7 @@ const uploadTarToServer = async (index: number, opts: any, compiler: Plugin) => 
 const bckupRemotePath = async (index: number, opts: any, compiler: Plugin) => {
 	try {
 		const { remotePath, backupPath, backupName } = opts;
-		const bakName = `${formatDate(new Date(), backupName || 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
+		const bakName = backupName || '' + `${formatDate(new Date(), 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
 		logger.log(`(${index}) 备份旧版本: ${logger.underline(backupPath)}`);
 		compiler.hook.beforeBckup.call();
 		spinner.start('备份中...\n');
@@ -164,7 +164,7 @@ const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 		const remoteTarPath = remotePath + '.tar.gz';
 		const clearExecCommand = clearRemoteDir ? [`rm -rf ${remotePath}/*`] : [];
 		const script = clearExecCommand
-			.concat([`tar -xpf ${remoteTarPath} -C ${remotePath}`, `rm -f ${remoteTarPath}`])
+			.concat([`tar -xpfm ${remoteTarPath} -C ${remotePath}`, `rm -f ${remoteTarPath}`])
 			.join(' && ');
 		const { stderr } = await ssh.execCommand(script);
 		if (stderr) throw new Error(stderr);
