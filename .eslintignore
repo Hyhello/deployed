@@ -5,3 +5,4 @@ scripts/
 lib/
 /coverage/
 *.config.js
+packages/cli/bin/
