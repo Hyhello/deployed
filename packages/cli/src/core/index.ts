@@ -164,7 +164,7 @@ const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 		const remoteTarPath = remotePath + '.tar.gz';
 		const clearExecCommand = clearRemoteDir ? [`rm -rf ${remotePath}/*`] : [];
 		const script = clearExecCommand
-			.concat([`tar -xpfm ${remoteTarPath} -C ${remotePath}`, `rm -f ${remoteTarPath}`])
+			.concat([`tar -xpf ${remoteTarPath} -C ${remotePath} -m`, `rm -f ${remoteTarPath}`])
 			.join(' && ');
 		const { stderr } = await ssh.execCommand(script);
 		if (stderr) throw new Error(stderr);
@@ -172,13 +172,14 @@ const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 			fs.removeSync(localPath);
 		}
 		spinner.succeed('部署成功!');
+		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
+		ssh.dispose(); // 断开连接
 		compiler.hook.afterDeploy.call();
 	} catch (e) {
 		spinner.fail(`部署失败：${e}`);
-	} finally {
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
-		// 断开连接
-		ssh.dispose();
+		ssh.dispose(); // 断开连接
+		process.exit(1);
 	}
 };
 
