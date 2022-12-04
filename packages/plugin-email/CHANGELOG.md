@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.7.0) (2022-12-04)
+
+
+### Features
+
+* 编写核心插件 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
+* 编写核心插件 ([b9cfad5](https://github.com/Hyhello/deployed/commit/b9cfad54709cdf06421ddee7285467ca86de2131))
+* 完成Plugin核心功能开发 ([3424097](https://github.com/Hyhello/deployed/commit/3424097f55f4865191faac9c58b685ce4f462d9c))
+
+
+
+
+
+
 # [0.6.0](https://github.com/Hyhello/deployed/compare/v0.4.3...v0.6.0) (2022-08-08)
 
 **Note:** Version bump only for package @deployed/plugin-email
