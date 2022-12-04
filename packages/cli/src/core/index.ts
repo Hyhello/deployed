@@ -3,12 +3,12 @@
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
 import archiver from 'archiver';
-import type Plugin from './plugin';
 import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
-import { formatDate } from '@hyhello/utils';
-import { logger, pPipe, resolveCWD, pathExistsSync } from '../utils';
+import { formatDate, pipe, oneOf } from '@hyhello/utils';
+import Plugin, { type SyncName, type IHook } from './plugin';
+import { logger, resolveCWD, pathExistsSync } from '../utils';
 
 const ssh = new NodeSSH();
 
@@ -18,11 +18,11 @@ const spinner = logger.spinner();
 const OUTPUT_NAME = resolveCWD(`${NAMESPACE}.tar.gz`);
 
 // 构建项目
-const execScriptCommand = (index: number, opts: any, compiler: Plugin): Promise<void> => {
+const execScriptCommand = (opts: IDeployOpts): Promise<void> => {
 	const script = opts.script || opts.global_script;
+	if (!script) return Promise.resolve();
 	return new Promise<void>((resolve, reject) => {
-		logger.log(`(${index}) ${script}`);
-		compiler.hook.beforeExec.call();
+		logger.log(`(${opts.index++}) ${script}`);
 		spinner.start('编译新版本...\n');
 		exec(script, (e) => {
 			if (e) {
@@ -31,7 +31,6 @@ const execScriptCommand = (index: number, opts: any, compiler: Plugin): Promise<
 				process.exit(1);
 			} else {
 				spinner.succeed('项目编译成功!');
-				compiler.hook.afterExec.call();
 				resolve();
 			}
 		});
@@ -39,11 +38,10 @@ const execScriptCommand = (index: number, opts: any, compiler: Plugin): Promise<
 };
 
 // 压缩本地文件夹为tar
-const floderConvertToZipStream = (index: number, opts: any, compiler: Plugin): Promise<void> => {
+const floderConvertToZipStream = (opts: IDeployOpts): Promise<void> => {
 	const { localPath } = opts;
 	return new Promise<void>((resolve, reject) => {
-		logger.log(`(${index}) 压缩目录: ${logger.underline(localPath)}`);
-		compiler.hook.beforeZip.call();
+		logger.log(`(${opts.index++}) 压缩目录: ${logger.underline(localPath)}`);
 		spinner.start('压缩中...\n');
 		if (!pathExistsSync(localPath)) {
 			spinner.fail('压缩失败，目录不存在!');
@@ -57,7 +55,6 @@ const floderConvertToZipStream = (index: number, opts: any, compiler: Plugin): P
 		});
 		output.on('close', () => {
 			spinner.succeed('压缩成功!');
-			compiler.hook.afterZip.call();
 			resolve();
 		});
 		output.on('error', (e) => {
@@ -72,10 +69,9 @@ const floderConvertToZipStream = (index: number, opts: any, compiler: Plugin): P
 };
 
 // 链接服务器
-const connectServer = async (index: number, opts: any, compiler: Plugin) => {
+const connectServer = async (opts: IDeployOpts) => {
 	try {
-		logger.log(`(${index}) 连接服务器: ${logger.underline(opts.host)}`);
-		compiler.hook.beforeConnect.call();
+		logger.log(`(${opts.index++}) 连接服务器: ${logger.underline(opts.host)}`);
 		const privateKey = opts.privateKey || opts.global_privateKey;
 		const passphrase = opts.passphrase || opts.global_passphrase;
 		const config: Config = {
@@ -103,7 +99,6 @@ const connectServer = async (index: number, opts: any, compiler: Plugin) => {
 		spinner.start('连接中...\n');
 		await ssh.connect(config);
 		spinner.succeed('连接成功!');
-		compiler.hook.afterConnect.call();
 	} catch (e) {
 		spinner.fail(`连接失败：${e}`);
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
@@ -112,16 +107,14 @@ const connectServer = async (index: number, opts: any, compiler: Plugin) => {
 };
 
 // 上传文件到服务器并备份
-const uploadTarToServer = async (index: number, opts: any, compiler: Plugin) => {
+const uploadTarToServer = async (opts: IDeployOpts) => {
 	try {
 		const { remotePath } = opts;
 		const remoteTarPath = remotePath + '.tar.gz';
-		logger.log(`(${index}) 上传压缩包: ${logger.underline(remoteTarPath)}`);
-		compiler.hook.beforeUpload.call();
+		logger.log(`(${opts.index++}) 上传压缩包: ${logger.underline(remoteTarPath)}`);
 		spinner.start('上传中...\n');
 		await ssh.putFile(OUTPUT_NAME, remoteTarPath);
 		spinner.succeed('上传成功!');
-		compiler.hook.afterUpload.call();
 	} catch (e) {
 		spinner.fail(`上传失败：${e}`);
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
@@ -130,12 +123,11 @@ const uploadTarToServer = async (index: number, opts: any, compiler: Plugin) => 
 };
 
 // 备份旧版本
-const bckupRemotePath = async (index: number, opts: any, compiler: Plugin) => {
+const bckupRemotePath = async (opts: IDeployOpts) => {
 	try {
 		const { remotePath, backupPath, backupName } = opts;
 		const bakName = backupName || '' + `${formatDate(new Date(), 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
-		logger.log(`(${index}) 备份旧版本: ${logger.underline(backupPath)}`);
-		compiler.hook.beforeBckup.call();
+		logger.log(`(${opts.index++}) 备份旧版本: ${logger.underline(backupPath)}`);
 		spinner.start('备份中...\n');
 		const { stderr } = await ssh.execCommand(
 			[
@@ -146,7 +138,6 @@ const bckupRemotePath = async (index: number, opts: any, compiler: Plugin) => {
 		);
 		if (stderr) throw new Error(stderr);
 		spinner.succeed('备份成功!');
-		compiler.hook.afterBckup.call();
 	} catch (e) {
 		spinner.fail(`备份失败：${e}`);
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
@@ -155,11 +146,10 @@ const bckupRemotePath = async (index: number, opts: any, compiler: Plugin) => {
 };
 
 // 部署项目
-const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
+const unTarFile = async (opts: IDeployOpts) => {
 	const { remotePath, localPath, clearRemoteDir, removeLocalDir, global_removeLocalDir } = opts;
 	try {
-		logger.log(`(${index}) 部署新版本`);
-		compiler.hook.beforeDeploy.call();
+		logger.log(`(${opts.index++}) 部署新版本`);
 		spinner.start('部署中...\n');
 		const remoteTarPath = remotePath + '.tar.gz';
 		const clearExecCommand = clearRemoteDir ? [`rm -rf ${remotePath}/*`] : [];
@@ -174,7 +164,6 @@ const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 		spinner.succeed('部署成功!');
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
 		ssh.dispose(); // 断开连接
-		compiler.hook.afterDeploy.call();
 	} catch (e) {
 		spinner.fail(`部署失败：${e}`);
 		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
@@ -183,23 +172,75 @@ const unTarFile = async (index: number, opts: any, compiler: Plugin) => {
 	}
 };
 
+// 注册钩子，内部实现
+const registryHooks = function (name: keyof IHook, compiler: Plugin): (opts: IDeployOpts) => Promise<void> {
+	return function (opts: IDeployOpts) {
+		return new Promise((resolve, reject) => {
+			const nameSync = <SyncName>(name + 'Sync');
+			const param: any = oneOf(name, [
+				'afterConnect',
+				'beforeUpload',
+				'afterUpload',
+				'beforeBckup',
+				'afterBckup',
+				'beforeDeploy'
+			])
+				? { opts, logger, ssh }
+				: { opts, logger };
+			// 优先走异步钩子
+			if (compiler.hook[name].taps.length) {
+				compiler.hook[name].promise(param).then(resolve).catch(reject);
+			} else if (compiler.hook[nameSync].taps.length) {
+				try {
+					// 没有异步钩子就走同步钩子
+					compiler.hook[nameSync].call(param);
+					resolve();
+				} catch (e) {
+					reject(e);
+				}
+			} else {
+				resolve();
+			}
+		});
+	};
+};
+
 // 运行任务
-const runTasks = async (opts: any, compiler: Plugin) => {
+const runTasks = async (opts: IDeployOpts, compiler: Plugin, type: 'start' | 'both' | 'done' | 'other') => {
 	const { script, global_script, backupPath } = opts;
 	const list = [];
 	if (script || global_script) {
+		list.push(registryHooks('beforeExec', compiler));
 		list.push(execScriptCommand);
+		list.push(registryHooks('afterExec', compiler));
 	}
+	list.push(registryHooks('beforeZip', compiler));
 	list.push(floderConvertToZipStream);
+	list.push(registryHooks('afterZip', compiler));
+	list.push(registryHooks('beforeConnect', compiler));
 	list.push(connectServer);
+	list.push(registryHooks('afterConnect', compiler));
+	list.push(registryHooks('beforeUpload', compiler));
 	list.push(uploadTarToServer);
+	list.push(registryHooks('afterUpload', compiler));
 	if (backupPath) {
+		list.push(registryHooks('beforeBckup', compiler));
 		list.push(bckupRemotePath);
+		list.push(registryHooks('afterBckup', compiler));
 	}
+	list.push(registryHooks('beforeDeploy', compiler));
 	list.push(unTarFile);
-	const execute = pPipe(...list);
-	await execute(opts, compiler);
-	compiler.hook.done.call(opts);
+	list.push(registryHooks('afterDeploy', compiler));
+	//
+	if (type === 'start' || type === 'both') {
+		list.unshift(registryHooks('start', compiler));
+	}
+	if (type === 'done' || type === 'both') {
+		list.push(registryHooks('done', compiler));
+	}
+
+	const execute = pipe(...list);
+	await execute(opts);
 };
 
 export default runTasks;

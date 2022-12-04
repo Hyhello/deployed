@@ -4,9 +4,8 @@
     "description": "email plugin for deployed",
     "author": "hyhello <673089899@qq.com>",
     "homepage": "https://github.com/Hyhello/deployed#readme",
-    "license": "ISC",
+    "license": "MIT",
     "main": "lib/index.js",
-    "private": true,
     "directories": {
         "lib": "lib"
     },
@@ -33,5 +32,8 @@
     },
     "devDependencies": {
         "@types/nodemailer": "^6.4.4"
+    },
+    "peerDependencies": {
+        "@deployed/cli": "workspace: *"
     }
 }

@@ -32,7 +32,7 @@ const pathGetProperty = (instancePath: string): string => {
 };
 
 // 加载配置
-const loadConfig = (configPath?: string): IApi => {
+const loadConfig = (configPath?: string): IDeployApi => {
 	const explorerSync = cosmiconfigSync(NAMESPACE, { searchPlaces });
 	const result = configPath && !isBoolean(configPath) ? explorerSync.load(configPath) : explorerSync.search();
 	if (!result) {
