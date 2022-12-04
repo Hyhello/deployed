@@ -26,7 +26,7 @@ export default {
 			description: '是否默认执行（取消提示）'
 		}
 	],
-	apply(opts: IDeployOpts) {
+	apply(opts: InquirerOpts) {
 		const { mode, configFile, tryRun, yes } = opts;
 		if (tryRun) return runTry(yes);
 
@@ -79,8 +79,12 @@ export default {
 				const lastTime = new Date().getTime();
 				const clusterList = 'cluster' in answer ? [answer.cluster] : modeList;
 				for (let i = 0, ii = clusterList.length; i < ii; i++) {
-					const localConfig = configModeMap.get(clusterList[i]);
-					if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig?.name)} 项目\n`);
+					const modeName = clusterList[i];
+					const localConfig = configModeMap.get(modeName);
+					// 说明clusterList.length 只有一条记录，
+					const type = ii === 1 ? 'both' : i === 0 ? 'start' : i === ii - 1 ? 'done' : 'other';
+					if (!localConfig) return Promise.reject(`部署 ${logger.underline(modeName)} 环境失败，请检查配置~`);
+					if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig.name)} 项目\n`);
 					await runTasks(
 						{
 							projectName: config.projectName,
@@ -90,12 +94,14 @@ export default {
 							global_removeLocalDir: config.removeLocalDir,
 							...opts,
 							...localConfig,
-							remotePath: localConfig?.remotePath.replace(/\/$/, '')
+							remotePath: localConfig.remotePath.replace(/\/$/, ''),
+							index: 1 // 作为计数
 						},
-						compiler
+						compiler,
+						type
 					);
 				}
-				logger.success(`恭喜您，项目已成功部署，本次部署共耗时${(new Date().getTime() - lastTime) / 1000}s`, {
+				logger.success(`恭喜您，项目已成功部署，本次部署共耗时 ${(new Date().getTime() - lastTime) / 1000} s`, {
 					prefixText: '\n'
 				});
 			})

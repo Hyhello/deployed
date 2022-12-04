@@ -67,10 +67,10 @@
   resolved "https://registry.npmjs.org/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
 
-"@hyhello/utils@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/@hyhello/utils/-/utils-1.5.0.tgz#b75f71cc3e1916f14b2b2a234b6da021f687cb53"
-  integrity sha512-CP0if3ce76JDsOLwVz6qwqvrcDbx005TxLVv1gRrc4tVnzstBnuqCki3KQgdFgohJFv7CM0ipN4conM8X8N7gw==
+"@hyhello/utils@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.npmjs.org/@hyhello/utils/-/utils-1.8.1.tgz#cba3a6699de1e37ad2ef9193e5132e3a8923f9fc"
+  integrity sha512-EUY5+8g0/v26Ex6yUZweGym0onpRbEDlIHB9Si2/0gFiVc2RVh/HHO9t0RfrQHJrwlZ8Q32pChxeXdzn1Z4b0w==
 
 "@lerna/add@4.0.0":
   version "4.0.0"

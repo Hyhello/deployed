@@ -1,3 +1,4 @@
+import type { IDeployCompiler } from '@deployed/cli';
 import nodemailer, { type SendMailOptions } from 'nodemailer';
 
 interface IOpts {
@@ -6,18 +7,28 @@ interface IOpts {
 }
 
 export default class PluginEmail {
-	opts: IOpts;
-	constructor(opts: IOpts) {
-		this.opts = opts;
+	options: IOpts;
+	constructor(options: IOpts) {
+		this.options = options;
 	}
-	apply(compiler: any) {
-		compiler.hook.done.tap('PluginEmail', () => this.sendEmail());
+	apply(compiler: IDeployCompiler) {
+		compiler.hook.done.tapPromise('PluginEmail', ({ opts, logger }) => {
+			return new Promise<void>((resolve, reject) => {
+				logger.log(`(${opts.index++}) 正在生成报告`);
+				const spinner = logger.spinner();
+				spinner.start('生成中');
+				this.sendEmail()
+					.then(() => {
+						spinner.succeed('生成完成!');
+						resolve();
+					})
+					.catch(reject);
+			});
+		});
 	}
 	async sendEmail() {
-		const { opts } = this;
-		// create reusable transporter object using the default SMTP transport
-		const transporter = nodemailer.createTransport(opts.mailOptions);
-		// send mail with defined transport object
-		await transporter.sendMail(opts.sendOptions);
+		const { options } = this;
+		const transporter = nodemailer.createTransport(options.mailOptions);
+		return await transporter.sendMail(options.sendOptions);
 	}
 }
