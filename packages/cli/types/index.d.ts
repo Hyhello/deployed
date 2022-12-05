@@ -1,7 +1,7 @@
 /* eslint-disable */
 import ora from 'ora';
 import type { NodeSSH } from 'node-ssh';
-import type { SyncHook, AsyncParallelHook } from 'tapable';
+import type { AsyncParallelHook } from 'tapable';
 
 
 // 打印部分
@@ -76,33 +76,19 @@ interface ISSHArgs extends IArgs {
 // 插件相关
 export interface IDeployHook {
     start: AsyncParallelHook<IArgs>;
-    startSync: SyncHook<IArgs>;
     beforeExec: AsyncParallelHook<IArgs>;
-    beforeExecSync: SyncHook<IArgs>;
     afterExec: AsyncParallelHook<IArgs>;
-    afterExecSync: SyncHook<IArgs>;
     beforeZip: AsyncParallelHook<IArgs>;
-    beforeZipSync: SyncHook<IArgs>;
     afterZip: AsyncParallelHook<IArgs>;
-    afterZipSync: SyncHook<IArgs>;
     beforeConnect: AsyncParallelHook<IArgs>;
-    beforeConnectSync: SyncHook<IArgs>;
     afterConnect: AsyncParallelHook<ISSHArgs>;
-    afterConnectSync: SyncHook<ISSHArgs>;
     beforeUpload: AsyncParallelHook<ISSHArgs>;
-    beforeUploadSync: SyncHook<ISSHArgs>;
     afterUpload: AsyncParallelHook<ISSHArgs>;
-    afterUploadSync: SyncHook<ISSHArgs>;
     beforeBckup: AsyncParallelHook<ISSHArgs>;
-    beforeBckupSync: SyncHook<ISSHArgs>;
     afterBckup: AsyncParallelHook<ISSHArgs>;
-    afterBckupSync: SyncHook<ISSHArgs>;
     beforeDeploy: AsyncParallelHook<ISSHArgs>;
-    beforeDeploySync: SyncHook<ISSHArgs>;
     afterDeploy: AsyncParallelHook<IArgs>;
-    afterDeploySync: SyncHook<IArgs>;
     done: AsyncParallelHook<IArgs>;
-    doneSync: SyncHook<IArgs>;
 }
 
 // 插件

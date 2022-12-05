@@ -6,8 +6,8 @@ import archiver from 'archiver';
 import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
+import Plugin, { type IHook } from './plugin';
 import { formatDate, pipe, oneOf } from '@hyhello/utils';
-import Plugin, { type SyncName, type IHook } from './plugin';
 import { logger, resolveCWD, pathExistsSync } from '../utils';
 
 const ssh = new NodeSSH();
@@ -176,7 +176,6 @@ const unTarFile = async (opts: IDeployOpts) => {
 const registryHooks = function (name: keyof IHook, compiler: Plugin): (opts: IDeployOpts) => Promise<void> {
 	return function (opts: IDeployOpts) {
 		return new Promise((resolve, reject) => {
-			const nameSync = <SyncName>(name + 'Sync');
 			const param: any = oneOf(name, [
 				'afterConnect',
 				'beforeUpload',
@@ -190,14 +189,6 @@ const registryHooks = function (name: keyof IHook, compiler: Plugin): (opts: IDe
 			// 优先走异步钩子
 			if (compiler.hook[name].taps.length) {
 				compiler.hook[name].promise(param).then(resolve).catch(reject);
-			} else if (compiler.hook[nameSync].taps.length) {
-				try {
-					// 没有异步钩子就走同步钩子
-					compiler.hook[nameSync].call(param);
-					resolve();
-				} catch (e) {
-					reject(e);
-				}
 			} else {
 				resolve();
 			}
