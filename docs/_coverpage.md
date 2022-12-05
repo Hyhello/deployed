@@ -1,6 +1,6 @@
 ![logo](./_images/icon.svg)
 
-# <image src="./_images/cracker.svg" /> 前端自动化部署工具 <image src="./_images/cracker.svg" /> <small>v0.11.0</small>
+# <image src="./_images/cracker.svg" /> 前端自动化部署工具 <image src="./_images/cracker.svg" /> <small>v1.0.0</small>
 
 ### 轻量部署、降本增效、极限容错
 
