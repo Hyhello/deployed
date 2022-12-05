@@ -36,7 +36,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
+# [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
 
 
 ### Bug Fixes
@@ -48,7 +48,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.4.2](https://github.com/Hyhello/deployed/compare/v0.4.1...v0.4.2) (2022-05-18)
+# [0.4.2](https://github.com/Hyhello/deployed/compare/v0.4.1...v0.4.2) (2022-05-18)
 
 
 ### Bug Fixes
@@ -63,7 +63,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [0.4.1](https://github.com/Hyhello/deployed/compare/v0.4.0...v0.4.1) (2022-04-25)
+# [0.4.1](https://github.com/Hyhello/deployed/compare/v0.4.0...v0.4.1) (2022-04-25)
 
 
 ### Bug Fixes

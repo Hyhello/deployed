@@ -8,4 +8,4 @@
   - [命令行](command.md)
 
 - 开发指南
-  - [开发插件](plugin.md)
+  - [插件](plugin.md)

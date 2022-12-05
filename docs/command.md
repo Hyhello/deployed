@@ -61,6 +61,14 @@ npx deployed-cli [deploy] --config-file <path> | npx deployed-cli [deploy] -c <p
 npx deployed-cli [deploy] --mode <env> | npx deployed-cli [deploy] -m <env>
 ```
 
+##### #是否默认执行（取消提示）
+
+通过 <code>--yes</code> | <code>-y</code> 参数来取消提示。
+
+```Shell
+npx deployed-cli [deploy] --yes | npx deployed-cli [deploy] -y
+```
+
 ##### #演示模式
 
 通过 <code>--try-run</code> | <code>-t</code> 参数来运行演示模式。
