@@ -34,6 +34,6 @@
         "@types/nodemailer": "^6.4.4"
     },
     "peerDependencies": {
-        "@deployed/cli": "^1.0.0"
+        "@deployed/cli": "workspace:*"
     }
 }
