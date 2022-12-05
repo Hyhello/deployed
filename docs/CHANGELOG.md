@@ -5,86 +5,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.0.0) (2022-12-05)
 
-**Note:** Version bump only for package deployed
-
-
-
-
-
-# [0.11.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.11.0) (2022-12-05)
-
-
-### Bug Fixes
-
-* 去除Sync相关钩子，合并到异步钩子里。 ([4cc41f2](https://github.com/Hyhello/deployed/commit/4cc41f29b3973a930fdfbcae3569213d7b1ced2d))
-* 修复部署时出错后流程不终止问题 ([328bf1a](https://github.com/Hyhello/deployed/commit/328bf1af28c8dfecc38c386b3c5b7ecd87e1abec))
-* 修复客户端时间与服务器时间对不上报错问题 ([0b9859c](https://github.com/Hyhello/deployed/commit/0b9859cfab93816483d6b54d409ad3ec682b74ec))
-
-
-### Features
-
-* 编写核心插件 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
-* 编写核心插件 ([b9cfad5](https://github.com/Hyhello/deployed/commit/b9cfad54709cdf06421ddee7285467ca86de2131))
-* 完成Plugin核心功能开发 ([3424097](https://github.com/Hyhello/deployed/commit/3424097f55f4865191faac9c58b685ce4f462d9c))
-
-
-
-
-
-# [0.10.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.10.0) (2022-12-05)
-
-
-### Bug Fixes
-
-* 去除Sync相关钩子，合并到异步钩子里。 ([4cc41f2](https://github.com/Hyhello/deployed/commit/4cc41f29b3973a930fdfbcae3569213d7b1ced2d))
-* 修复部署时出错后流程不终止问题 ([328bf1a](https://github.com/Hyhello/deployed/commit/328bf1af28c8dfecc38c386b3c5b7ecd87e1abec))
-* 修复客户端时间与服务器时间对不上报错问题 ([0b9859c](https://github.com/Hyhello/deployed/commit/0b9859cfab93816483d6b54d409ad3ec682b74ec))
-
-
-### Features
-
-* 编写核心插件 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
-* 编写核心插件 ([b9cfad5](https://github.com/Hyhello/deployed/commit/b9cfad54709cdf06421ddee7285467ca86de2131))
-* 完成Plugin核心功能开发 ([3424097](https://github.com/Hyhello/deployed/commit/3424097f55f4865191faac9c58b685ce4f462d9c))
-
-
-
-
-
-# [0.9.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.9.0) (2022-12-05)
-
-
-### Bug Fixes
-
-* 去除Sync相关钩子，合并到异步钩子里。 ([4cc41f2](https://github.com/Hyhello/deployed/commit/4cc41f29b3973a930fdfbcae3569213d7b1ced2d))
-* 修复部署时出错后流程不终止问题 ([328bf1a](https://github.com/Hyhello/deployed/commit/328bf1af28c8dfecc38c386b3c5b7ecd87e1abec))
-* 修复客户端时间与服务器时间对不上报错问题 ([0b9859c](https://github.com/Hyhello/deployed/commit/0b9859cfab93816483d6b54d409ad3ec682b74ec))
-
-
-### Features
-
-* 编写核心插件 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
-* 编写核心插件 ([b9cfad5](https://github.com/Hyhello/deployed/commit/b9cfad54709cdf06421ddee7285467ca86de2131))
-* 完成Plugin核心功能开发 ([3424097](https://github.com/Hyhello/deployed/commit/3424097f55f4865191faac9c58b685ce4f462d9c))
-
-
-
-
-
-# [0.8.0](https://github.com/Hyhello/deployed/compare/v0.7.0...v0.8.0) (2022-12-05)
-
-
-### Bug Fixes
-
-* 去除Sync相关钩子，合并到异步钩子里。 ([4cc41f2](https://github.com/Hyhello/deployed/commit/4cc41f29b3973a930fdfbcae3569213d7b1ced2d))
-
-
-
-
-
-# [0.7.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.7.0) (2022-12-04)
-
-
 ### Bug Fixes
 
 * 修复部署时出错后流程不终止问题 ([328bf1a](https://github.com/Hyhello/deployed/commit/328bf1af28c8dfecc38c386b3c5b7ecd87e1abec))
@@ -93,10 +13,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* 部署支持Plugin功能 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
-
-
-
+* 新增支持Plugin扩展 ([8607ac7](https://github.com/Hyhello/deployed/commit/8607ac7cd45d0f122ce1e0a633a4918771436042))
 
 
 
