@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/Hyhello/deployed/compare/v0.7.0...v0.8.0) (2022-12-05)
+
+
+### Bug Fixes
+
+* 去除Sync相关钩子，合并到异步钩子里。 ([4cc41f2](https://github.com/Hyhello/deployed/commit/4cc41f29b3973a930fdfbcae3569213d7b1ced2d))
+
+
+
+
+
 # [0.7.0](https://github.com/Hyhello/deployed/compare/v0.6.0...v0.7.0) (2022-12-04)
 
 
