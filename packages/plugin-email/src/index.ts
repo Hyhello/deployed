@@ -14,12 +14,12 @@ export default class PluginEmail {
 	apply(compiler: IDeployCompiler) {
 		compiler.hook.done.tapPromise('PluginEmail', ({ opts, logger }) => {
 			return new Promise<void>((resolve, reject) => {
-				logger.log(`(${opts.index++}) 正在生成报告`);
+				logger.log(`(${opts.index++}) 正在发送邮件`);
 				const spinner = logger.spinner();
-				spinner.start('生成中');
+				spinner.start('发送中');
 				this.sendEmail()
 					.then(() => {
-						spinner.succeed('生成完成!');
+						spinner.succeed('发送完成!');
 						resolve();
 					})
 					.catch(reject);
