@@ -69,40 +69,47 @@ const floderConvertToZipStream = (opts: IDeployOpts): Promise<void> => {
 };
 
 // 链接服务器
-const connectServer = async (opts: IDeployOpts) => {
-	try {
+const connectServer = async (opts: IDeployOpts, reconnect = false) => {
+	if (!reconnect) {
 		logger.log(`(${opts.index++}) 连接服务器: ${logger.underline(opts.host)}`);
-		const privateKey = opts.privateKey || opts.global_privateKey;
-		const passphrase = opts.passphrase || opts.global_passphrase;
-		const config: Config = {
-			host: opts.host,
-			port: opts.port,
-			username: opts.username
-		};
-		if (privateKey) {
-			config.privateKey = privateKey;
-			passphrase && (config.passphrase = passphrase);
-		} else {
-			let password = opts.password;
-			if (!password) {
-				const answer = await inquirer.prompt([
-					{
-						type: 'password',
-						name: 'password',
-						message: '请输入服务器密码?'
-					}
-				]);
-				password = answer.password;
-			}
-			config.password = password;
+	}
+	const privateKey = opts.privateKey || opts.global_privateKey;
+	const passphrase = opts.passphrase || opts.global_passphrase;
+	const config: Config = {
+		host: opts.host,
+		port: opts.port,
+		username: opts.username
+	};
+	if (privateKey) {
+		config.privateKey = privateKey;
+		passphrase && (config.passphrase = passphrase);
+	} else {
+		let password = opts.password;
+		if (!password) {
+			const answer = await inquirer.prompt([
+				{
+					type: 'password',
+					name: 'password',
+					message: reconnect ? '密码错误，请重新输入服务器密码?' : '请输入服务器密码?'
+				}
+			]);
+			password = answer.password;
 		}
+		config.password = password;
+	}
+	try {
 		spinner.start('连接中...\n');
 		await ssh.connect(config);
 		spinner.succeed('连接成功!');
-	} catch (e) {
-		spinner.fail(`连接失败：${e}`);
-		fs.unlinkSync(OUTPUT_NAME); // 删除文件包
-		process.exit(1);
+	} catch (e: any) {
+		if (!reconnect && !privateKey && e.level === 'client-authentication') {
+			spinner.stop();
+			await connectServer(opts, true);
+		} else {
+			spinner.fail(`连接失败：${e}`);
+			fs.unlinkSync(OUTPUT_NAME); // 删除文件包
+			process.exit(1);
+		}
 	}
 };
 
