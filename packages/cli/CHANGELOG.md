@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/Hyhello/deployed/compare/v1.2.0...v1.2.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* 修复安装时候buildcheck报错问题，降低node-ssh版本 ([d4431c4](https://github.com/Hyhello/deployed/commit/d4431c42e2dcc5c7c61f87e76847c673989a11ed))
+
+
+
+
+
 # [1.2.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.2.0) (2023-04-04)
 
 
