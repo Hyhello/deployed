@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/Hyhello/deployed/compare/v1.2.1...v1.3.0) (2023-04-14)
+
+
+### Features
+
+* 如果配置全局script, 使用多环境发包，第一次发包需要构建，后面则不需要构建包，直接上传 ([64094a3](https://github.com/Hyhello/deployed/commit/64094a3a2dc498bf1dc521a34ebcc1e18e361c42))
+
+
+
+
+
+
 ## [1.2.1](https://github.com/Hyhello/deployed/compare/v1.2.0...v1.2.1) (2023-04-12)
 
 
