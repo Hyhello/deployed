@@ -33,4 +33,9 @@ interface Api extends IBaseOptions {
     plugin?: Array<string | [string, object]>;    // 插件
     $schema?: string;                             // 配置环境集合
 }
+
+export interface IDeployOpts extends IMode, IBaseOptions {
+    index: number;                                // 当前运行step, 主要用于打印
+    projectName: string;                          // 项目名称
+}
 ```

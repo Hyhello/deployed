@@ -2,8 +2,9 @@
 
 import inquirer from 'inquirer';
 import Plugin from '../core/plugin';
+import { oneOf } from '@hyhello/utils';
 import runTasks, { runTry } from '../core';
-import { logger, loadConfig, loadPlugin } from '../utils';
+import { logger, loadConfig, loadPlugin, pathExistsSync } from '../utils';
 
 export default {
 	isDefault: true,
@@ -85,15 +86,26 @@ export default {
 					const type = ii === 1 ? 'both' : i === 0 ? 'start' : i === ii - 1 ? 'done' : 'other';
 					if (!localConfig) return Promise.reject(`部署 ${logger.underline(modeName)} 环境失败，请检查配置~`);
 					if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig.name)} 项目\n`);
+					// 此处解决配置 global script 相关配置
+					// 导致多次发包，多次打包问题。
+					// 现在改为，如果配置的是全局script，且局部没有配置script，则，只有第一次会构建，剩余的发包则不会构建
+					let script = localConfig.script || config.script;
+					if (
+						oneOf(type, ['other', 'done']) &&
+						!localConfig.script &&
+						pathExistsSync(localConfig.localPath)
+					) {
+						script = '';
+					}
 					await runTasks(
 						{
 							projectName: config.projectName,
-							global_privateKey: config.privateKey,
-							global_passphrase: config.passphrase,
-							global_script: config.script,
-							global_removeLocalDir: config.removeLocalDir,
 							...opts,
 							...localConfig,
+							script,
+							privateKey: localConfig.privateKey || config.privateKey,
+							passphrase: localConfig.passphrase || config.passphrase,
+							removeLocalDir: localConfig.removeLocalDir || config.removeLocalDir,
 							remotePath: localConfig.remotePath.replace(/\/$/, ''),
 							index: 1 // 作为计数
 						},

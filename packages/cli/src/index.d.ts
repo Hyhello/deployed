@@ -42,8 +42,4 @@ interface IDeployApi extends IBaseOptions {
 interface IDeployOpts extends IMode, IBaseOptions {
     index: number;                                // 当前运行step, 主要用于打印
     projectName: string;                          // 项目名称
-    global_privateKey?: string;                   // 登录服务器私钥
-    global_passphrase?: string;                   // 对于加密的私钥(privateKey)，这是用来解密它的密码短语
-    global_script?: string;                       // 运行脚本
-    global_removeLocalDir?: boolean;              // 是否删除localPath
 }

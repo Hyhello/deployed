@@ -19,7 +19,7 @@ const OUTPUT_NAME = resolveCWD(`${NAMESPACE}.tar.gz`);
 
 // 构建项目
 const execScriptCommand = (opts: IDeployOpts): Promise<void> => {
-	const script = opts.script || opts.global_script;
+	const script = opts.script;
 	if (!script) return Promise.resolve();
 	return new Promise<void>((resolve, reject) => {
 		logger.log(`(${opts.index++}) ${script}`);
@@ -73,8 +73,8 @@ const connectServer = async (opts: IDeployOpts, reconnect = false) => {
 	if (!reconnect) {
 		logger.log(`(${opts.index++}) 连接服务器: ${logger.underline(opts.host)}`);
 	}
-	const privateKey = opts.privateKey || opts.global_privateKey;
-	const passphrase = opts.passphrase || opts.global_passphrase;
+	const privateKey = opts.privateKey;
+	const passphrase = opts.passphrase;
 	const config: Config = {
 		host: opts.host,
 		port: opts.port,
@@ -154,7 +154,7 @@ const bckupRemotePath = async (opts: IDeployOpts) => {
 
 // 部署项目
 const unTarFile = async (opts: IDeployOpts) => {
-	const { remotePath, localPath, clearRemoteDir, removeLocalDir, global_removeLocalDir } = opts;
+	const { remotePath, localPath, clearRemoteDir, removeLocalDir } = opts;
 	try {
 		logger.log(`(${opts.index++}) 部署新版本`);
 		spinner.start('部署中...\n');
@@ -165,7 +165,7 @@ const unTarFile = async (opts: IDeployOpts) => {
 			.join(' && ');
 		const { stderr } = await ssh.execCommand(script);
 		if (stderr) throw new Error(stderr);
-		if (removeLocalDir || global_removeLocalDir) {
+		if (removeLocalDir) {
 			fs.removeSync(localPath);
 		}
 		spinner.succeed('部署成功!');
@@ -205,9 +205,9 @@ const registryHooks = function (name: keyof IHook, compiler: Plugin): (opts: IDe
 
 // 运行任务
 const runTasks = async (opts: IDeployOpts, compiler: Plugin, type: 'start' | 'both' | 'done' | 'other') => {
-	const { script, global_script, backupPath } = opts;
+	const { script, backupPath } = opts;
 	const list = [];
-	if (script || global_script) {
+	if (script) {
 		list.push(registryHooks('beforeExec', compiler));
 		list.push(execScriptCommand);
 		list.push(registryHooks('afterExec', compiler));
