@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/Hyhello/deployed/compare/v1.4.0...v1.5.0) (2023-09-08)
+
+
+### Bug Fixes
+
+* 删除多余的types ([08d280a](https://github.com/Hyhello/deployed/commit/08d280a5481cbfc59bc98b53eb0d8842e11160c3))
+
+
+
+
+
+
 # [1.4.0](https://github.com/Hyhello/deployed/compare/v1.3.0...v1.4.0) (2023-09-08)
 
 
