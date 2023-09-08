@@ -6,6 +6,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 # [1.5.0](https://github.com/Hyhello/deployed/compare/v1.4.0...v1.5.0) (2023-09-08)
 
 
+### Features
+
+* plugin方法由AsyncParallelHook更改为AsyncSeriesHook ([4dd937b](https://github.com/Hyhello/deployed/commit/4dd937bb36da658187b574045e3bb5de9949d645))
+
 ### Bug Fixes
 
 * 删除多余的types ([08d280a](https://github.com/Hyhello/deployed/commit/08d280a5481cbfc59bc98b53eb0d8842e11160c3))
@@ -13,14 +17,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-
-
-# [1.4.0](https://github.com/Hyhello/deployed/compare/v1.3.0...v1.4.0) (2023-09-08)
-
-
-### Features
-
-* plugin方法由AsyncParallelHook更改为AsyncSeriesHook ([4dd937b](https://github.com/Hyhello/deployed/commit/4dd937bb36da658187b574045e3bb5de9949d645))
 
 
 
