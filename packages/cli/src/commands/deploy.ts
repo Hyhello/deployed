@@ -4,6 +4,7 @@ import inquirer from 'inquirer';
 import Plugin from '../core/plugin';
 import { oneOf } from '@hyhello/utils';
 import runTasks, { runTry } from '../core';
+import { InquirerOpts } from '@type/index';
 import { logger, loadConfig, loadPlugin, pathExistsSync } from '../utils';
 
 export default {

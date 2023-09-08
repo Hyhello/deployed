@@ -5,6 +5,7 @@ import path from 'path';
 import logger from './logger';
 import schema from '../schema.json';
 import { NAMESPACE } from '../config';
+import { IDeployApi } from '@type/index';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { isPlainObject, isNumber, toNumber, isBoolean } from '@hyhello/utils';
 
