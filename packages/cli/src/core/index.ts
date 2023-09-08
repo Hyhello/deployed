@@ -1,12 +1,13 @@
 #! /usr/bin/env node
 
 import fs from 'fs-extra';
+import Plugin from './plugin';
 import inquirer from 'inquirer';
 import archiver from 'archiver';
 import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
-import Plugin, { type IHook } from './plugin';
+import { IDeployHook, IDeployOpts } from '@type/index';
 import { formatDate, pipe, oneOf } from '@hyhello/utils';
 import { logger, resolveCWD, pathExistsSync } from '../utils';
 
@@ -180,7 +181,7 @@ const unTarFile = async (opts: IDeployOpts) => {
 };
 
 // 注册钩子，内部实现
-const registryHooks = function (name: keyof IHook, compiler: Plugin): (opts: IDeployOpts) => Promise<void> {
+const registryHooks = function (name: keyof IDeployHook, compiler: Plugin): (opts: IDeployOpts) => Promise<void> {
 	return function (opts: IDeployOpts) {
 		return new Promise((resolve, reject) => {
 			const param: any = oneOf(name, [
