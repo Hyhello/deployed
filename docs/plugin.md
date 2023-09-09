@@ -38,20 +38,20 @@ interface ISSHArgs extends IArgs {
 
 <!-- 钩子 -->
 interface IDeployHook {
-    start: AsyncParallelHook<IArgs>;            // 发布之前触发
-    beforeExec: AsyncParallelHook<IArgs>;       // 编译之前触发
-    afterExec: AsyncParallelHook<IArgs>;        // 编译之后触发
-    beforeZip: AsyncParallelHook<IArgs>;        // 压缩之前触发
-    afterZip: AsyncParallelHook<IArgs>;         // 压缩之后触发
-    beforeConnect: AsyncParallelHook<IArgs>;    // 连接服务器之前触发
-    afterConnect: AsyncParallelHook<ISSHArgs>;  // 连接服务器之后触发
-    beforeUpload: AsyncParallelHook<ISSHArgs>;  // 上传之前触发
-    afterUpload: AsyncParallelHook<ISSHArgs>;   // 上传之后触发
-    beforeBckup: AsyncParallelHook<ISSHArgs>;   // 备份之前触发
-    afterBckup: AsyncParallelHook<ISSHArgs>;    // 备份之后触发
-    beforeDeploy: AsyncParallelHook<ISSHArgs>;  // 部署之前触发
-    afterDeploy: AsyncParallelHook<IArgs>;      // 部署之后触发
-    done: AsyncParallelHook<IArgs>;             // 发布完成之后触发
+    start: AsyncSeriesHook<IArgs>;            // 发布之前触发
+    beforeExec: AsyncSeriesHook<IArgs>;       // 编译之前触发
+    afterExec: AsyncSeriesHook<IArgs>;        // 编译之后触发
+    beforeZip: AsyncSeriesHook<IArgs>;        // 压缩之前触发
+    afterZip: AsyncSeriesHook<IArgs>;         // 压缩之后触发
+    beforeConnect: AsyncSeriesHook<IArgs>;    // 连接服务器之前触发
+    afterConnect: AsyncSeriesHook<ISSHArgs>;  // 连接服务器之后触发
+    beforeUpload: AsyncSeriesHook<ISSHArgs>;  // 上传之前触发
+    afterUpload: AsyncSeriesHook<ISSHArgs>;   // 上传之后触发
+    beforeBckup: AsyncSeriesHook<ISSHArgs>;   // 备份之前触发
+    afterBckup: AsyncSeriesHook<ISSHArgs>;    // 备份之后触发
+    beforeDeploy: AsyncSeriesHook<ISSHArgs>;  // 部署之前触发
+    afterDeploy: AsyncSeriesHook<IArgs>;      // 部署之后触发
+    done: AsyncSeriesHook<IArgs>;             // 发布完成之后触发
 }
 ```
 
