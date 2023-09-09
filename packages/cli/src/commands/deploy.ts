@@ -41,7 +41,7 @@ export default {
 		// 加载plugin
 		if (config.plugin && Array.isArray(config.plugin)) {
 			// 插件列表
-			const pluginList: any[] = loadPlugin(config.plugin);
+			const pluginList = loadPlugin(config.plugin);
 
 			pluginList.forEach((plugin) => plugin.apply(compiler));
 		}

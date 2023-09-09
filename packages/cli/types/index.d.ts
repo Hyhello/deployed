@@ -88,7 +88,11 @@ export interface IDeployHook {
 }
 
 // 插件
-export class IDeployCompiler {
+export interface IDeployCompiler {
     readonly hook: Readonly<IDeployHook>;
-    constructor();
 }
+
+// plugin class
+export interface IDeployPlugin {
+    apply(compiler: IDeployCompiler): void;
+};

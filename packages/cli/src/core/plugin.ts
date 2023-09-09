@@ -3,10 +3,9 @@ import { AsyncSeriesHook } from 'tapable';
 import { IArgs, ISSHArgs, IDeployHook } from '@type/index';
 
 export default class Compiler {
-	// IArgs: object;
 	readonly hook: Readonly<IDeployHook>;
 	constructor() {
-		this.hook = Object.freeze({
+		this.hook = Object.freeze<IDeployHook>({
 			start: new AsyncSeriesHook<IArgs>(['IArgs']),
 			beforeExec: new AsyncSeriesHook<IArgs>(['IArgs']),
 			afterExec: new AsyncSeriesHook<IArgs>(['IArgs']),

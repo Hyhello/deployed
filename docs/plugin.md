@@ -53,15 +53,20 @@ interface IDeployHook {
     afterDeploy: AsyncSeriesHook<IArgs>;      // 部署之后触发
     done: AsyncSeriesHook<IArgs>;             // 发布完成之后触发
 }
+
+interface IDeployCompiler {
+    readonly hook: Readonly<IDeployHook>;
+}
+
 ```
 
 目前插件编写模板如下：
 
 ```node
-import type { IDeployCompiler } from '@deployed/cli';
+import type { IDeployCompiler, IDeployPlugin } from '@deployed/cli';
 
-export default class Plugin {
-    constructor(options: any) {
+export default class Plugin implements IDeployPlugin {
+    constructor(options: Record<string, object>) {
         this.options = options;
     }
     apply(compiler: IDeployCompiler) {

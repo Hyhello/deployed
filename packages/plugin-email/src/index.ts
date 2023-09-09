@@ -1,4 +1,4 @@
-import type { IDeployCompiler } from '@deployed/cli';
+import type { IDeployCompiler, IDeployPlugin } from '@deployed/cli';
 import nodemailer, { type SendMailOptions } from 'nodemailer';
 
 interface IOpts {
@@ -6,7 +6,7 @@ interface IOpts {
 	sendOptions: SendMailOptions;
 }
 
-export default class PluginEmail {
+export default class PluginEmail implements IDeployPlugin {
 	options: IOpts;
 	constructor(options: IOpts) {
 		this.options = options;

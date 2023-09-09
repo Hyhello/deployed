@@ -3,6 +3,7 @@
 import logger from './logger';
 import { resolveCWD } from './index';
 import { isArray } from '@hyhello/utils';
+import { IDeployPlugin } from '@type/index';
 
 const pluginKeywordReg = /^[@\w]+\/plugin-[\w-]+$/;
 
@@ -12,8 +13,8 @@ function importModule(name: string) {
 	return mod && mod.default ? mod.default : mod;
 }
 
-const loadPlugin = (plugins: any[] = []) => {
-	return plugins.reduce((pluginList, plugin) => {
+const loadPlugin = (plugins: Array<string | [string, object]> = []) => {
+	return plugins.reduce<IDeployPlugin[]>((pluginList, plugin) => {
 		let pluginName: string | undefined;
 		let pluginOpt: object = {};
 		if (typeof plugin === 'string') {
@@ -31,10 +32,10 @@ const loadPlugin = (plugins: any[] = []) => {
 		try {
 			const PluginClass = importModule(moduleName);
 			pluginList.push(new PluginClass(pluginOpt));
-			return pluginList;
 		} catch (e) {
 			logger.error(`Plugin '${pluginName}' loading failed：${e}`);
 		}
+		return pluginList;
 	}, []);
 };
 
