@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/Hyhello/deployed/compare/v1.5.0...v1.6.0) (2023-09-09)
+
+
+### Features
+
+* type.d.ts 添加 IDeployPlugin ([84a25ba](https://github.com/Hyhello/deployed/commit/84a25bac44419d742729d2b846fa8dd585d38587))
+
+
+
+
+
+
 # [1.2.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.2.0) (2023-04-04)
 
 **Note:** Version bump only for package @deployed/plugin-email

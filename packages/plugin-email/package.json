@@ -1,6 +1,6 @@
 {
     "name": "@deployed/plugin-email",
-    "version": "1.2.0",
+    "version": "1.6.0",
     "description": "email plugin for deployed",
     "author": "hyhello <673089899@qq.com>",
     "homepage": "https://github.com/Hyhello/deployed#readme",
