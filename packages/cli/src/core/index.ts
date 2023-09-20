@@ -8,8 +8,8 @@ import { exec } from 'child_process';
 import { NAMESPACE } from '../config';
 import { NodeSSH, Config } from 'node-ssh';
 import { IDeployHook, IDeployOpts } from '@type/index';
-import { formatDate, pipe, oneOf } from '@hyhello/utils';
 import { logger, resolveCWD, pathExistsSync } from '../utils';
+import { formatDate, pipe, oneOf, camelCase } from '@hyhello/utils';
 
 const ssh = new NodeSSH();
 
@@ -17,6 +17,9 @@ const spinner = logger.spinner();
 
 // 输出文件名称
 const OUTPUT_NAME = resolveCWD(`${NAMESPACE}.tar.gz`);
+
+// 工作流集合
+const WORKFLOW = ['exec', 'zip', 'connect', 'upload', 'bckup', 'deploy']
 
 // 构建项目
 const execScriptCommand = (opts: IDeployOpts): Promise<void> => {
@@ -134,6 +137,7 @@ const uploadTarToServer = async (opts: IDeployOpts) => {
 const bckupRemotePath = async (opts: IDeployOpts) => {
 	try {
 		const { remotePath, backupPath, backupName } = opts;
+	    if (!backupPath) return Promise.resolve();
 		const bakName = backupName || '' + `${formatDate(new Date(), 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
 		logger.log(`(${opts.index++}) 备份旧版本: ${logger.underline(backupPath)}`);
 		spinner.start('备份中...\n');
@@ -206,30 +210,12 @@ const registryHooks = function (name: keyof IDeployHook, compiler: Plugin): (opt
 
 // 运行任务
 const runTasks = async (opts: IDeployOpts, compiler: Plugin, type: 'start' | 'both' | 'done' | 'other') => {
-	const { script, backupPath } = opts;
-	const list = [];
-	if (script) {
-		list.push(registryHooks('beforeExec', compiler));
-		list.push(execScriptCommand);
-		list.push(registryHooks('afterExec', compiler));
-	}
-	list.push(registryHooks('beforeZip', compiler));
-	list.push(floderConvertToZipStream);
-	list.push(registryHooks('afterZip', compiler));
-	list.push(registryHooks('beforeConnect', compiler));
-	list.push(connectServer);
-	list.push(registryHooks('afterConnect', compiler));
-	list.push(registryHooks('beforeUpload', compiler));
-	list.push(uploadTarToServer);
-	list.push(registryHooks('afterUpload', compiler));
-	if (backupPath) {
-		list.push(registryHooks('beforeBckup', compiler));
-		list.push(bckupRemotePath);
-		list.push(registryHooks('afterBckup', compiler));
-	}
-	list.push(registryHooks('beforeDeploy', compiler));
-	list.push(unTarFile);
-	list.push(registryHooks('afterDeploy', compiler));
+    const workflowFn = [execScriptCommand, floderConvertToZipStream, connectServer, uploadTarToServer, bckupRemotePath, unTarFile]
+	const list = WORKFLOW.reduce((arr, name, index) => {
+        arr.push(registryHooks(camelCase(`before-${name}`), compiler));
+        arr.push(workflowFn[index]);
+        arr.push(registryHooks(camelCase(`after-${name}`), compiler));
+    }, []);
 	//
 	if (type === 'start' || type === 'both') {
 		list.unshift(registryHooks('start', compiler));
