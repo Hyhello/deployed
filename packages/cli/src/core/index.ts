@@ -19,7 +19,7 @@ const spinner = logger.spinner();
 const OUTPUT_NAME = resolveCWD(`${NAMESPACE}.tar.gz`);
 
 // 工作流集合
-const WORKFLOW = ['exec', 'zip', 'connect', 'upload', 'bckup', 'deploy']
+const WORKFLOW = ['exec', 'zip', 'connect', 'upload', 'bckup', 'deploy'];
 
 // 构建项目
 const execScriptCommand = (opts: IDeployOpts): Promise<void> => {
@@ -137,7 +137,7 @@ const uploadTarToServer = async (opts: IDeployOpts) => {
 const bckupRemotePath = async (opts: IDeployOpts) => {
 	try {
 		const { remotePath, backupPath, backupName } = opts;
-	    if (!backupPath) return Promise.resolve();
+		if (!backupPath) return Promise.resolve();
 		const bakName = backupName || '' + `${formatDate(new Date(), 'yyyy-MM-dd_hh_mm_ss')}.tar.gz`;
 		logger.log(`(${opts.index++}) 备份旧版本: ${logger.underline(backupPath)}`);
 		spinner.start('备份中...\n');
@@ -210,12 +210,22 @@ const registryHooks = function (name: keyof IDeployHook, compiler: Plugin): (opt
 
 // 运行任务
 const runTasks = async (opts: IDeployOpts, compiler: Plugin, type: 'start' | 'both' | 'done' | 'other') => {
-    const workflowFn = [execScriptCommand, floderConvertToZipStream, connectServer, uploadTarToServer, bckupRemotePath, unTarFile]
-	const list = WORKFLOW.reduce((arr, name, index) => {
-        arr.push(registryHooks(camelCase(`before-${name}`), compiler));
-        arr.push(workflowFn[index]);
-        arr.push(registryHooks(camelCase(`after-${name}`), compiler));
-    }, []);
+	const workflowFn = [
+		execScriptCommand,
+		floderConvertToZipStream,
+		connectServer,
+		uploadTarToServer,
+		bckupRemotePath,
+		unTarFile
+	];
+	const list = WORKFLOW.reduce<((opts: IDeployOpts, reconnect?: boolean) => Promise<void>)[]>((arr, name, index) => {
+		const beforeName = <keyof IDeployHook>camelCase(`before-${name}`);
+		const afterName = <keyof IDeployHook>camelCase(`after-${name}`);
+		arr.push(registryHooks(beforeName, compiler));
+		arr.push(workflowFn[index]);
+		arr.push(registryHooks(afterName, compiler));
+		return arr;
+	}, []);
 	//
 	if (type === 'start' || type === 'both') {
 		list.unshift(registryHooks('start', compiler));
