@@ -94,6 +94,7 @@ const connectServer = async (opts: IDeployOpts, reconnect = false) => {
 				{
 					type: 'password',
 					name: 'password',
+					mask: '*',
 					message: reconnect ? '密码错误，请重新输入服务器密码?' : '请输入服务器密码?'
 				}
 			]);
