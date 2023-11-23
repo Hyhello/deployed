@@ -55,16 +55,23 @@ export default {
 		inquirer
 			.prompt([
 				{
-					type: 'rawlist',
+					type: 'checkbox',
 					name: 'cluster',
 					message: '请选择部署环境?',
 					when: !modeList.length,
-					choices: config.modeList.map((item) => {
+					choices: config.modeList.map((item, index) => {
 						return {
 							name: item.name,
-							value: item.mode
+							value: item.mode,
+							checked: index === 0
 						};
-					})
+					}),
+					validate(list) {
+						if (list.length < 1) {
+							return '至少选择一个部署环境.';
+						}
+						return true;
+					}
 				},
 				{
 					type: 'confirm',
@@ -79,7 +86,7 @@ export default {
 					return;
 				}
 				const lastTime = new Date().getTime();
-				const clusterList = 'cluster' in answer ? [answer.cluster] : modeList;
+				const clusterList = answer.cluster.length ? answer.cluster : modeList;
 				for (let i = 0, ii = clusterList.length; i < ii; i++) {
 					const modeName = clusterList[i];
 					const localConfig = configModeMap.get(modeName);
