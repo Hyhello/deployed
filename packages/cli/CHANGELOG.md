@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/Hyhello/deployed/compare/v1.6.0...v1.6.1) (2023-11-23)
+
+
+### Bug Fixes
+
+* 修改“请输入服务器密码?” 由hide input -> * ([fb2871b](https://github.com/Hyhello/deployed/commit/fb2871b98dc11f299cce1f8b4baada194533241f))
+* 修改“请选择部署环境?” 由rawList（单选）->  checkbox（多选） ([f02c978](https://github.com/Hyhello/deployed/commit/f02c978c9ef5385bd457b81bf97ad21c643a2671))
+
+
+
+
+
+
 # [1.6.0](https://github.com/Hyhello/deployed/compare/v1.5.0...v1.6.0) (2023-09-09)
 
 
