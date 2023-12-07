@@ -1,0 +1,17 @@
+{
+  "projectName": "deployed",
+  "script": "echo '123123'",
+  "modeList": [
+    {
+      "mode": "dev",
+      "name": "222",
+      "host": "1",
+      "port": 22,
+      "username": "root",
+      "localPath": "dist",
+      "remotePath": "/opt"
+    }
+  ],
+  "plugin": [["@deployed/changelog", {}]],
+  "$schema": "https://json.schemastore.org/deployed"
+}

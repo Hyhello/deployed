@@ -2,7 +2,7 @@ import type { IDeployCompiler, IDeployPlugin } from '@deployed/cli';
 import nodemailer, { type SendMailOptions } from 'nodemailer';
 
 interface IOpts {
-	mailOptions: any;
+	mailOptions: nodemailer.TransportOptions;
 	sendOptions: SendMailOptions;
 }
 
