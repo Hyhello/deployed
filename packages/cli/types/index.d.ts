@@ -3,7 +3,6 @@ import ora from 'ora';
 import type { NodeSSH } from 'node-ssh';
 import type { AsyncSeriesHook } from 'tapable';
 
-
 // 打印部分
 declare const logger: {
     log(...msgs: string[]): void;

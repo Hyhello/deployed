@@ -12,8 +12,9 @@ export default class PluginEmail implements IDeployPlugin {
 		this.options = options;
 	}
 	apply(compiler: IDeployCompiler) {
-		compiler.hook.done.tapPromise('PluginEmail', ({ opts, logger }) => {
+		compiler.hook.afterExec.tapPromise('PluginEmail', ({ opts, logger }) => {
 			return new Promise<void>((resolve, reject) => {
+				console.log('_DEPLOYED_VERSION_LOG_', process.env._DEPLOYED_VERSION_LOG_);
 				logger.log(`(${opts.index++}) 正在发送邮件`);
 				const spinner = logger.spinner();
 				spinner.start('发送中');

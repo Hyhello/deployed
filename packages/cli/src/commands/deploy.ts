@@ -30,6 +30,7 @@ export default {
 	],
 	apply(opts: InquirerOpts) {
 		const { mode, configFile, tryRun, yes } = opts;
+
 		if (tryRun) return runTry(yes);
 
 		// 初始化插件
@@ -86,7 +87,7 @@ export default {
 					return;
 				}
 				const lastTime = new Date().getTime();
-				const clusterList = answer.cluster.length ? answer.cluster : modeList;
+				const clusterList = modeList.length ? modeList : answer.cluster || [];
 				for (let i = 0, ii = clusterList.length; i < ii; i++) {
 					const modeName = clusterList[i];
 					const localConfig = configModeMap.get(modeName);

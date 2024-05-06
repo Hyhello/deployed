@@ -31,12 +31,10 @@
         "url": "https://github.com/Hyhello/deployed/issues"
     },
     "dependencies": {
-        "concat-stream": "^2.0.0",
-        "conventional-changelog": "4"
+        "git-raw-commits": "^2.0.11"
     },
     "devDependencies": {
-        "@types/concat-stream": "^2.0.3",
-        "@types/conventional-changelog": "^3.1.5"
+        "@types/git-raw-commits": "^2.0.4"
     },
     "peerDependencies": {
         "@deployed/cli": "^1.0.0"
