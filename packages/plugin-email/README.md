@@ -1,11 +1,13 @@
 # `@deployed/plugin-email`
 
-> TODO: description
+> @deployed/plugin-email is a plugin for `@deployed/cli`;
 
 ## Usage
 
+``` javascript
+{
+    "plugins": [["@deployed/email", { mailOptions: {}, sendOptions: {} }]]
+}
 ```
-const pluginEmail = require('@deployed/plugin-email');
 
-// TODO: DEMONSTRATE API
-```
+> `mailOptions`及`sendOptions`详见 [!nodemailer](https://nodemailer.com/) 官网
