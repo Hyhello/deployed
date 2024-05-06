@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.5](https://github.com/Hyhello/deployed/compare/v1.6.1...v1.6.5) (2024-05-06)
+
+
+### Bug Fixes
+
+* 修复在指定mode时报空指针错误 ([8863da2](https://github.com/Hyhello/deployed/commit/8863da294913a9e8d343646ac0cae506f4a92de3))
+
+
+
+
+
+
 ## [1.6.1](https://github.com/Hyhello/deployed/compare/v1.6.0...v1.6.1) (2023-11-23)
 
 
