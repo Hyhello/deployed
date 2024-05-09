@@ -86,7 +86,7 @@ export default {
                     return;
                 }
                 const lastTime = new Date().getTime();
-                const clusterList = modeList.length ? modeList : answer.cluster || [];
+                const clusterList = 'cluster' in answer ? [answer.cluster] : modeList;
                 for (let i = 0, ii = clusterList.length; i < ii; i++) {
                     const modeName = clusterList[i];
                     const localConfig = configModeMap.get(modeName);
