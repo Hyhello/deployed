@@ -16,11 +16,6 @@ export { default as loadConfig } from './loadConfig';
 // 加载plugin文件
 export { default as loadPlugin } from './loadPlugin';
 
-// 检测文件路径是否存在
-export const pathExistsSync = (pathDir: string): boolean => {
-    return fs.pathExistsSync(pathDir);
-};
-
 // 检测当前node版本号
 export const checkNodeVersion = (v: string) => {
     if (!semver.satisfies(process.version, v)) {
@@ -33,6 +28,11 @@ export const checkNodeVersion = (v: string) => {
 // resolveCWD
 export const resolveCWD = (dir: string): string => {
     return path.isAbsolute(dir) ? dir : path.resolve(process.cwd(), dir);
+};
+
+// 检测文件路径是否存在
+export const pathExistsSync = (pathDir: string): boolean => {
+    return fs.pathExistsSync(resolveCWD(pathDir));
 };
 
 // 随机Promise

@@ -227,7 +227,7 @@ const runTasks = async (opts: IDeployOpts, compiler: Plugin, type: 'start' | 'bo
         arr.push(registryHooks(afterName, compiler));
         return arr;
     }, []);
-    //
+
     if (type === 'start' || type === 'both') {
         list.unshift(registryHooks('start', compiler));
     }

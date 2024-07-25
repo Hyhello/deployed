@@ -12,7 +12,7 @@ const inquirerConfig: inquirer.QuestionCollection<inquirer.Answers> = [
         message: '当前配置文件已存在，是否覆盖？',
         askAnswered: true,
         when() {
-            return pathExistsSync(resolveCWD(initConfigFile));
+            return pathExistsSync(initConfigFile);
         }
     },
     {

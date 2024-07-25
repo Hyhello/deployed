@@ -2,7 +2,6 @@
 
 import inquirer from 'inquirer';
 import Plugin from '../core/plugin';
-import { oneOf } from '@hyhello/utils';
 import runTasks, { runTry } from '../core';
 import { InquirerOpts } from '@type/index';
 import { logger, loadConfig, loadPlugin, pathExistsSync } from '../utils';
@@ -20,6 +19,11 @@ export default {
             description: '指定部署环境'
         },
         {
+            argv: '-a, --auto-check',
+            description: '自动检测构建文件是否存在，存在则不会执行script命令',
+            default: true
+        },
+        {
             argv: '-t, --try-run',
             description: '演示模式'
         },
@@ -29,7 +33,7 @@ export default {
         }
     ],
     apply(opts: InquirerOpts) {
-        const { mode, configFile, tryRun, yes } = opts;
+        const { mode, configFile, tryRun, yes, autoCheck } = opts;
         if (tryRun) return runTry(yes);
 
         // 初始化插件
@@ -86,23 +90,21 @@ export default {
                     return;
                 }
                 const lastTime = new Date().getTime();
-                const clusterList = 'cluster' in answer ? [answer.cluster] : modeList;
+                const clusterList = modeList.length ? modeList : answer.cluster || [];
                 for (let i = 0, ii = clusterList.length; i < ii; i++) {
                     const modeName = clusterList[i];
                     const localConfig = configModeMap.get(modeName);
-                    // 说明clusterList.length 只有一条记录，
+
+                    // 如果clusterList只有一条记录，则添加：start，和 done 钩子
+                    // 如果clusterList有多条记录，i === 0 得时候，则添加：start 钩子，i === ii - 1 则添加：done 钩子
+                    // 如果clusterList有多条记录，i > 0 && i < ii - 1，则类型为：other。则不添加任何钩子
                     const type = ii === 1 ? 'both' : i === 0 ? 'start' : i === ii - 1 ? 'done' : 'other';
                     if (!localConfig) return Promise.reject(`部署 ${logger.underline(modeName)} 环境失败，请检查配置~`);
                     if (ii > 1) logger.log(`\n正在部署 ${logger.underline(localConfig.name)} 项目\n`);
-                    // 此处解决配置 global script 相关配置
-                    // 导致多次发包，多次打包问题。
-                    // 现在改为，如果配置的是全局script，且局部没有配置script，则，只有第一次会构建，剩余的发包则不会构建
+
                     let script = localConfig.script || config.script;
-                    if (
-                        oneOf(type, ['other', 'done']) &&
-                        !localConfig.script &&
-                        pathExistsSync(localConfig.localPath)
-                    ) {
+                    // 自动检测构建文件是否存在，存在则不会执行script命令
+                    if (autoCheck && pathExistsSync(localConfig.localPath)) {
                         script = '';
                     }
                     await runTasks(
