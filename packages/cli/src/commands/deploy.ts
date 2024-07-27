@@ -11,6 +11,10 @@ export default {
     description: '部署项目',
     options: [
         {
+            argv: '-a, --auto-skip-script',
+            description: '检查构建文件是否存在，如果存在则跳过执行script命令'
+        },
+        {
             argv: '-c, --config-file <path>',
             description: '自定义配置文件'
         },
@@ -19,17 +23,12 @@ export default {
             description: '指定部署环境'
         },
         {
-            argv: '-a, --auto-check',
-            description: '自动检测构建文件是否存在，存在则不会执行script命令',
-            default: true
+            argv: '-y, --yes',
+            description: '是否静默执行'
         },
         {
             argv: '-t, --try-run',
             description: '演示模式'
-        },
-        {
-            argv: '-y, --yes',
-            description: '是否默认执行（取消提示）'
         }
     ],
     apply(opts: InquirerOpts) {
