@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/Hyhello/deployed/compare/v1.6.5...v1.7.0) (2024-08-19)
+
+
+### Bug Fixes
+
+* update command args --auto-check -> --auto-skip-script ([1785a65](https://github.com/Hyhello/deployed/commit/1785a654a545dbb77760cd6ddbc33e4b960867b0))
+
+
+### Features
+
+* 添加autoAheck配置，自动检测构建文件是否存在，存在则不会执行script命令 ([63e90a5](https://github.com/Hyhello/deployed/commit/63e90a5202bcaf19adcebef9cbb0a2f83bd6c2e0))
+
+
+
+
+
 ## [1.6.5](https://github.com/Hyhello/deployed/compare/v1.6.1...v1.6.5) (2024-05-06)
 
 ### Bug Fixes
