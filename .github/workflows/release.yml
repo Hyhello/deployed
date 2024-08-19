@@ -20,7 +20,7 @@ jobs:
         uses: mindsers/changelog-reader-action@v2
         with:
           validation_level: warn
-          path: ./docs/CHANGELOG.md
+          path: ./CHANGELOG.md
 
       - name: Create/update release
         uses: ncipollo/release-action@v1
