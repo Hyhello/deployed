@@ -6,6 +6,9 @@
         "publish": {
             "allowBranch": "master",
             "conventionalCommits": true,
+            "context": {
+                "isPatch": true
+            },
             "ignoreChanges": [
                 "**/*.md",
                 "**/__tests__/**"

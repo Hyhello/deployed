@@ -32,7 +32,7 @@ export default {
         }
     ],
     apply(opts: InquirerOpts) {
-        const { mode, configFile, tryRun, yes, autoCheck } = opts;
+        const { mode, configFile, tryRun, yes, autoSkipScript } = opts;
         if (tryRun) return runTry(yes);
 
         // 初始化插件
@@ -103,7 +103,7 @@ export default {
 
                     let script = localConfig.script || config.script;
                     // 自动检测构建文件是否存在，存在则不会执行script命令
-                    if (autoCheck && pathExistsSync(localConfig.localPath)) {
+                    if (autoSkipScript && pathExistsSync(localConfig.localPath)) {
                         script = '';
                     }
                     await runTasks(

@@ -5,7 +5,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.6.5](https://github.com/Hyhello/deployed/compare/v1.6.1...v1.6.5) (2024-05-06)
 
-
 ### Bug Fixes
 
 * 修复在指定mode时报空指针错误 ([8863da2](https://github.com/Hyhello/deployed/commit/8863da294913a9e8d343646ac0cae506f4a92de3))
@@ -28,7 +27,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.6.0](https://github.com/Hyhello/deployed/compare/v1.5.0...v1.6.0) (2023-09-09)
+## [1.6.0](https://github.com/Hyhello/deployed/compare/v1.5.0...v1.6.0) (2023-09-09)
 
 
 ### Features
@@ -40,7 +39,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.5.0](https://github.com/Hyhello/deployed/compare/v1.4.0...v1.5.0) (2023-09-08)
+## [1.5.0](https://github.com/Hyhello/deployed/compare/v1.4.0...v1.5.0) (2023-09-08)
 
 
 ### Features
@@ -51,7 +50,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * 删除多余的types ([08d280a](https://github.com/Hyhello/deployed/commit/08d280a5481cbfc59bc98b53eb0d8842e11160c3))
 
-# [1.3.0](https://github.com/Hyhello/deployed/compare/v1.2.1...v1.3.0) (2023-04-14)
+## [1.3.0](https://github.com/Hyhello/deployed/compare/v1.2.1...v1.3.0) (2023-04-14)
 
 
 ### Features
@@ -74,7 +73,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.2.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.2.0) (2023-04-04)
+## [1.2.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.2.0) (2023-04-04)
 
 
 ### Features
@@ -86,7 +85,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [1.0.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.0.0) (2022-12-05)
+## [1.0.0](https://github.com/Hyhello/deployed/compare/v0.11.0...v1.0.0) (2022-12-05)
 
 ### Bug Fixes
 
@@ -100,7 +99,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.6.0](https://github.com/Hyhello/deployed/compare/v0.4.3...v0.6.0) (2022-08-08)
+## [0.6.0](https://github.com/Hyhello/deployed/compare/v0.4.3...v0.6.0) (2022-08-08)
 
 
 ### Bug Fixes
@@ -119,7 +118,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
+## [0.4.3](https://github.com/Hyhello/deployed/compare/v0.4.2...v0.4.3) (2022-05-19)
 
 
 ### Bug Fixes
@@ -131,7 +130,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.4.2](https://github.com/Hyhello/deployed/compare/v0.4.1...v0.4.2) (2022-05-18)
+## [0.4.2](https://github.com/Hyhello/deployed/compare/v0.4.1...v0.4.2) (2022-05-18)
 
 
 ### Bug Fixes
@@ -146,7 +145,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# [0.4.1](https://github.com/Hyhello/deployed/compare/v0.4.0...v0.4.1) (2022-04-25)
+## [0.4.1](https://github.com/Hyhello/deployed/compare/v0.4.0...v0.4.1) (2022-04-25)
 
 
 ### Bug Fixes
@@ -159,7 +158,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-# 0.4.0 (2022-04-23)
+## 0.4.0 (2022-04-23)
 
 
 ### Features

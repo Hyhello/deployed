@@ -20,7 +20,7 @@ declare const logger: {
 interface InquirerOpts {
     configFile?: string;                   // 自定义配置文件路径
     mode?: string;                         // 指定部署的环境别名
-    autoCheck?: boolean;                   // 自动检测构建文件是否存在，存在则不会执行script命令
+    autoSkipScript?: boolean;              // 检查构建文件是否存在，如果存在则跳过执行script命令
     tryRun?: boolean;                      // 是否试运行
     yes?: boolean;                         // 是否默认执行（取消提示）
 }
